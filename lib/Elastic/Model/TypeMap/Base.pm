@@ -4,6 +4,7 @@ use strict;
 use warnings;
 
 use Sub::Exporter qw(build_exporter);
+use Class::Load qw(load_class);
 use Class::MOP();
 use List::MoreUtils qw(uniq);
 use Moose::Util qw(does_role);
@@ -40,7 +41,7 @@ sub import {
 
     for (@args) {
         next if /^[:-]/;
-        Class::MOP::load_class($_);
+        load_class($_);
         $callee->import_types( $_->typemap );
     }
 }
